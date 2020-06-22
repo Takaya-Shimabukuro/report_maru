@@ -1,8 +1,8 @@
-PWD c:/Users/faka0/Desktop/tex_workspace/report/�}���`���f�B�A�H�w�T
+PWD c:/Users/faka0/Desktop/tex_workspace/report/report_maru
 INPUT c:/texlive/2020/texmf.cnf
 INPUT c:/texlive/2020/texmf-dist/web2c/texmf.cnf
 INPUT c:/texlive/2020/texmf-var/web2c/xetex/xelatex.fmt
-INPUT c:/Users/faka0/Desktop/tex_workspace/report/マルチメディア工学Ⅰ/マルチメディア工学Ⅰ中間レポート_18T1694W_島袋隆也.tex
+INPUT c:/Users/faka0/Desktop/tex_workspace/report/report_maru/マルチメディア工学Ⅰ中間レポート_18T1694W_島袋隆也.tex
 OUTPUT マルチメディア工学Ⅰ中間レポート_18T1694W_島袋隆也.log
 INPUT c:/texlive/2020/texmf-dist/tex/latex/bxjscls/bxjsarticle.cls
 INPUT c:/texlive/2020/texmf-dist/tex/latex/bxjscls/bxjsarticle.cls
@@ -137,4 +137,6 @@ INPUT c:/texlive/2020/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmmib5.tfm
 INPUT c:/texlive/2020/texmf-dist/fonts/tfm/public/cm/cmbsy10.tfm
 INPUT c:/texlive/2020/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy7.tfm
 INPUT c:/texlive/2020/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy5.tfm
+INPUT dct_con.eps
+INPUT dct_con.eps
 INPUT マルチメディア工学Ⅰ中間レポート_18T1694W_島袋隆也.aux
