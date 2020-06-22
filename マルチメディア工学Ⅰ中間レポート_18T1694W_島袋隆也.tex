@@ -53,6 +53,14 @@ PNGやGIFに変換し，保存形式による画質の変化を考察し理解�
     \end{center}
   \end{table}
 
+  また実験には以下の画像を使用した．
+  \begin{figure}[htbp]
+    \centering  % 図を真ん中に配置
+    \includegraphics[clip,width = 9.0cm]{sample_cut.eps}
+    \caption{DCT変換}
+    \label{fig:sample}
+    \end{figure}
+
 \section{原理}
 \subsection{JPEG}
 JPEG（Joint Photographic Experts Group）とは，静止画像データを非可逆圧縮する方式の一種である．
@@ -91,13 +99,12 @@ DCTを実際に行った場合を図\ref{fig:dct}に示す．\cite{jpeg1}
 左上の方ほど空間周波数が低く，変化が少ない，その一方で右下の方ほど空間周波数が高い，変化が細かいことが確認できる．
 周波数が高ければ高いほど細かなピクセルの変化を表すが，それらは間引いても違和感なく圧縮できる．
 
-このようにして，圧縮は行われる．
+
 
 \subsection{PNG}
 PNG（Portable Network Graphics）とは静止画像データを可逆圧縮する方式の一種である．
 Webでビットマップ画像を扱うファイルフォーマットとして開発された．
-
-このような理由により，理論上GIFよりも圧縮効率がよい。
+理論上GIFよりも圧縮効率がよい。
 また，Webのフォーマットように開発されたため，複数の透過色を指定可能，ガンマ値を補正できる特徴を持つ。
 LZ77（正確にはLZSS）というアルゴリズムが使われており，GIFよりも圧縮率が高い．
 
@@ -127,29 +134,134 @@ GIFはPNGと同様に可逆圧縮をする方式である．1から256色と表�
           \item IrfanViewで写真を開く．
           \item "ファイル" → "名前をつけて保存"を選択する．
           \item ファイルの種類を"JPG-JPEG File"にする．
-          \item "save options"より"save quality"（圧縮率）を0~100の10刻みで実行する．
+          \item "save options"より"save quality"（圧縮率）を10\textasciitilde100の20\%刻みで実行する．
         \end{enumerate}
   \item \begin{enumerate}
+          \item ファイルの種類を"JPG-JPEG File"にする．
+          \item "save options"より"save quality"（圧縮率）を10\textasciitilde100の79\%刻みで実行する．
           \item ファイルの種類を"PNG-Portable Network Graphics"にする．
-          \item "save options"よりsave quality（圧縮率）を0\textasciitilde100の10刻みで実行する．
+          \item "save options"より"Compression level"（圧縮度）を1で実行する．
           \item ファイルの種類を"GIF-Compuserve GIF"にする．
-          \item "save options"よりsave quality（圧縮率）を0\textasciitilde100の10刻みで実行する．
+          \item "save options"よりsave quality（圧縮率）を79\%で実行する．
         \end{enumerate}
 \end{enumerate}
 
-
-
 %=====================================================================
-\section{結果と考察}
-圧縮率を0\textasciitilde100まで10\%刻みで行った．その結果を図\ref{}から図\ref{}に示す．
-  \subsection{結果}
-  \begin{enumerate}
-    \item 
-  \end{enumerate}
+\section{結果}
+  \subsection{課題1}
+  圧縮率を10\textasciitilde100まで20\%刻みで行った．その結果を図\ref{fig:j10}\textasciitilde\ref{fig:j90}に示す．
+  またそれぞれのファイルサイズは表\ref{tab:result_jpeg_filesize}のようになった．
+
+  \begin{figure}[htbp]
+    \begin{minipage}{0.5\hsize}
+     \begin{center}
+      \includegraphics[width=50mm]{sample_j10.jpg}
+     \end{center}
+     \caption{JPEG:圧縮率10\%}
+     \label{fig:j10}
+    \end{minipage}
+    \begin{minipage}{0.5\hsize}
+     \begin{center}
+      \includegraphics[width=50mm]{sample_j30.jpg}
+     \end{center}
+     \caption{JPEG:圧縮率30\%}
+     \label{fig:j30}
+    \end{minipage}
+   \end{figure}
+
+   \begin{figure}[htbp]
+    \begin{minipage}{0.5\hsize}
+     \begin{center}
+      \includegraphics[width=50mm]{sample_j50.jpg}
+     \end{center}
+     \caption{JPEG:圧縮率50\%}
+     \label{fig:j50}
+    \end{minipage}
+    \begin{minipage}{0.5\hsize}
+     \begin{center}
+      \includegraphics[width=50mm]{sample_j70.jpg}
+     \end{center}
+     \caption{JPEG:圧縮率70\%}
+     \label{fig:j70}
+    \end{minipage}
+   \end{figure}
+\newpage
+   \begin{figure}[htbp]
+     \begin{center}
+      \includegraphics[width=50mm]{sample_j90.jpg}
+     \end{center}
+     \caption{JPEG:圧縮率90\%}
+     \label{fig:j90}
+   \end{figure}
+
+   \begin{table}[htb]
+    \begin{center}
+      \caption{JPEGで保存したときの画像サイズ一覧}
+      \begin{tabular}{|c|c|} \hline
+        圧縮率[\%] & サイズ[$kB$] \\\hline
+        10 & 52  \\
+        30 & 66  \\ 
+        50 & 75  \\
+        70 & 86  \\
+        90 & 120  \\\hline
+
+      \end{tabular}
+      \label{tab:result_jpeg_filesize}
+    \end{center}
+  \end{table}
+\newpage
+  \subsection{課題2}
+    条件をそろえるためPNGは圧縮レベル1を，GIFとJPEGは79\%に設定して圧縮を行った．
+    その結果を図\ref{fig:j79}\textasciitilde\ref{fig:g79}に示す．
+
+    \begin{figure}[htbp]
+      \begin{minipage}{0.5\hsize}
+       \begin{center}
+        \includegraphics[width=50mm]{sample_j79.eps}
+       \end{center}
+       \caption{JPEG:圧縮率79\%}
+       \label{fig:j79}
+      \end{minipage}
+      \begin{minipage}{0.5\hsize}
+       \begin{center}
+        \includegraphics[width=50mm]{sample_p79.eps}
+       \end{center}
+       \caption{PNG:圧縮率79\%}
+       \label{fig:p79}
+      \end{minipage}
+     \end{figure}
+
+     \begin{figure}[!htbp]
+       \begin{center}
+        \includegraphics[width=50mm]{sample_g79.eps}
+       \end{center}
+       \caption{GIF:圧縮率79\%}
+       \label{fig:g79}
+     \end{figure}
+
+     また，ファイルサイズは表\ref{tab:result_filesize}のようになった．
+     \begin{table}[htb]
+      \begin{center}
+        \caption{圧縮率79\%の保存形式ごとのサイズ一覧}
+        \begin{tabular}{|c|c|} \hline
+          保存形式 & サイズ[$kB$] \\\hline
+          JPEG & 94  \\
+          PNG & 386  \\ 
+          GIF & 154  \\ \hline
+
+        \end{tabular}
+        \label{tab:result_filesize}
+      \end{center}
+    \end{table}
+  
+
 
   　
 
-  \subsection{考察}
+\section{考察}
+\subsection{課題1}
+
+\subsection{課題2}
   高い圧縮率でJPEG圧縮をすると、8×8で圧縮処理を行う弊害として、以下の画像のように8×8のモザイク状のノイズ（ブロックノイズ）が生じてしまったり、高い空間周波数成分を間引いてしまったために、明るさや色が急激に変わる輪郭周辺でもやもやしたノイズ（モスキートノイズ）が現れたりすることがあります。
   　また、圧縮するたびにデータの一部分が必ず劣化していきますので、画像処理を続けて行うときに、途中経過をJPEG形式で保存することはおすすめできません。
   　少しでも画像劣化を避けたい場合、あるいは画像処理を続けて行う際の途中経過の保存などのためには、可逆圧縮方式を利用したPNGなどの別の形式を用いるか、データ量は少々多くなりますが圧縮しないでそのまま保存するなどの方法をとることがのぞましいです。
