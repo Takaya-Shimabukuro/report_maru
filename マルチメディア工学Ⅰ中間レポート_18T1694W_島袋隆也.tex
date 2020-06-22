@@ -1,0 +1,110 @@
+\documentclass[a4paper,11pt]{bxjsarticle}
+\usepackage{xltxtra}
+\usepackage{zxjatype}
+\usepackage{here}
+\setjamainfont[BoldFont=ipaexm.ttf]{ipaexm.ttf}
+\setjasansfont[BoldFont=ipaexg.ttf]{ipaexg.ttf}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{bm}
+\lstset{
+basicstyle={\scriptsize}
+}
+\setlist[enumerate]{listparindent=2pt}
+
+
+\begin{document}
+\begin{titlepage}
+  \begin{center}
+    \vspace*{150truept}
+    {\Huge マルチメディア工学Ⅰ　中間レポート}\\ % タイトル
+    \vspace{120truept}
+    {\huge 18T1694W}\\ % 学籍番号
+    \vspace{50truept}
+    {\huge 島袋 隆也}\\ % 著者
+    \vspace{50truept}
+    {\huge \today}\\ % 提出日
+  \end{center}
+\end{titlepage}
+
+
+%=====================================================================
+\section{目的}
+　本実験では，撮影した画像の圧縮率を変化させ，圧縮による画像劣化を考察する．また，
+PNGやGIFに変換し，保存形式による画質の変化を考察し理解することを目的とする．
+
+
+%=====================================================================
+\section{実験器具}
+  今回撮影に使用したスマホのスペックを表に示す. 
+  \begin{table}[htb]
+    \begin{center}
+      \caption{スペック表}
+      \begin{tabular}{|c|c|} \hline
+        名称 & Garaxy s10  \\
+        F値 & 2.4  \\
+        画素数 & 1200万  \\ \hline
+
+      \end{tabular}
+      \label{tab:price}
+    \end{center}
+  \end{table}
+
+\section{原理}
+\subsection{JPEG}
+\subsection{PNG}
+\subsection{GIF}
+
+%=====================================================================
+\section{課題}
+課題内容を以下に示す．
+　\begin{enumerate}
+    \item デジカメ等で撮影したJPEG画像の圧縮率を変化させて保存した複数の画像を作成し，画質とデータサイズとの関係を考察しなさい。また，画質がどのように変化しているか。またなぜそのような変化をするのかを考察しなさい。
+    \item 同じ画像をJPEG以外の画像フォーマットで保存し，JPEGとの比較考察をしなさい。
+  \end{enumerate}
+
+
+
+\section{実験手順}
+実験器具で示したスマートフォンと画像編集ソフトIrfanViewで実験を行った．
+実験手順を以下に示す．\\
+\begin{enumerate}
+  \item \begin{enumerate}
+          \item スマホで写真を撮影する．
+          \item IrfanViewで写真を開く．
+          \item "ファイル" → "名前をつけて保存"を選択する．
+          \item ファイルの種類を"JPG-JPEG File"にする．
+          \item "save options"より"save quality"（圧縮率）を0~100の10刻みで実行する．
+        \end{enumerate}
+  \item \begin{enumerate}
+          \item ファイルの種類を"PNG-Portable Network Graphics"にする．
+          \item "save options"よりsave quality（圧縮率）を0\textasciitilde100の10刻みで実行する．
+          \item ファイルの種類を"GIF-Compuserve GIF"にする．
+          \item "save options"よりsave quality（圧縮率）を0\textasciitilde100の10刻みで実行する．
+        \end{enumerate}
+\end{enumerate}
+
+
+
+%=====================================================================
+\section{結果と考察}
+圧縮率を0\textasciitilde100まで10\%刻みで行った．その結果を図\ref{}から図\ref{}に示す．
+  \subsection{結果}
+  \begin{enumerate}
+    \item 
+  \end{enumerate}
+
+  　
+
+  \subsection{考察}
+    
+
+
+%=====================================================================
+\section{参考文献}
+京都大学工学部電気系教室: 「電気電子工学実習」 \\
+
+\end{document}
