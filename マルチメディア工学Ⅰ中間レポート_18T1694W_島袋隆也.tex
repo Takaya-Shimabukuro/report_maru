@@ -126,70 +126,35 @@ GIFはPNGと同様に可逆圧縮をする方式である．1から256色と表�
           \item IrfanViewで写真を開く．
           \item "ファイル" → "名前をつけて保存"を選択する．
           \item ファイルの種類を"JPG-JPEG File"にする．
-          \item "save options"より"save quality"（圧縮率）を85，55，25，10，5\%で実行し保存．
+          \item "save options"より"save quality"を85，55，25，10，5で実行し保存．
           \item それぞれの画像に対してWindows Viewerでトリミングし保存。
         \end{enumerate}
   \item \begin{enumerate}
           \item ファイルの種類を"JPG-JPEG File"にする．
-          \item "save options"より"save quality"を10\textasciitilde100の82\%刻みで実行する．
+          \item "save options"より"save quality"を10\textasciitilde100の82刻みで実行する．
           \item ファイルの種類を"PNG-Portable Network Graphics"にする．
-          \item "save options"より"Compression level"を7(圧縮率82\%)で実行する．
+          \item "save options"より"Compression level"を7で実行する．
           \item ファイルの種類を"GIF-Compuserve GIF"にする．
-          \item "save options"より"save quality"を82\%で実行する．
-          \item 上記の手順で得た3つの画像をトリミングする．
+          \item "save options"より"save quality"を82で実行する．
+          \item それぞれ保存したファイルを同様に10回ずつ実行し上書き保存する．
         \end{enumerate}
 \end{enumerate}
 
 %=====================================================================
 \section{結果}
   \subsection{課題1}
-  圧縮率を85，55，25，10，5\%としてJPEG形式で保存した．その結果を図\ref{fig:jori}\textasciitilde\ref{fig:j5}に示す．
+  save qualityを85，55，25，10，5としてJPEG形式で保存した．その結果を図\ref{fig:jori}\textasciitilde\ref{fig:j5}に示す．
   またそれぞれのファイルサイズは表\ref{tab:result_jpeg_filesize}のようになった．
 
-  \begin{figure}[htbp]
-    \begin{minipage}{0.5\hsize}
-     \begin{center}
-      \includegraphics[width=50mm]{sample.jpg}
-     \end{center}
-     \caption{JPEG：オリジナル}
-     \label{fig:jori}
-    \end{minipage}
-    \begin{minipage}{0.5\hsize}
-     \begin{center}
-      \includegraphics[width=50mm]{sample_j85.jpg}
-     \end{center}
-     \caption{JPEG:圧縮率85\%}
-     \label{fig:j85}
-    \end{minipage}
-   \end{figure}
-
-   \begin{figure}[htbp]
-    \begin{minipage}{0.5\hsize}
-     \begin{center}
-      \includegraphics[width=50mm]{sample_j55.jpg}
-     \end{center}
-     \caption{JPEG:圧縮率55\%}
-     \label{fig:j55}
-    \end{minipage}
-    \begin{minipage}{0.5\hsize}
-     \begin{center}
-      \includegraphics[width=50mm]{sample_j25.jpg}
-     \end{center}
-     \caption{JPEG:圧縮率25\%}
-     \label{fig:j25}
-    \end{minipage}
-   \end{figure}
-
-
-   \begin{table}[htb]
+  \begin{table}[htb]
     \begin{center}
       \caption{JPEGで保存したときの画像サイズ一覧}
       \begin{tabular}{|c|c|} \hline
-        圧縮率[\%] & サイズ[$kB$] \\\hline
+        save quality & サイズ[$kB$] \\\hline
         original & 4557  \\
-        85 & 2872  \\ 
-        55 & 1643  \\
-        25 & 1039 \\
+        85 & 2,872  \\ 
+        55 & 1,643  \\
+        25 & 1,039 \\
         10 & 554 \\
         5 & 307 \\\hline
 
@@ -201,40 +166,75 @@ GIFはPNGと同様に可逆圧縮をする方式である．1から256色と表�
   \begin{figure}[htbp]
     \begin{minipage}{0.5\hsize}
      \begin{center}
+      \includegraphics[width=50mm]{sample.jpg}
+     \end{center}
+     \caption{オリジナル}
+     \label{fig:jori}
+    \end{minipage}
+    \begin{minipage}{0.5\hsize}
+     \begin{center}
+      \includegraphics[width=50mm]{sample_j85.jpg}
+     \end{center}
+     \caption{JPEG:85}
+     \label{fig:j85}
+    \end{minipage}
+   \end{figure}
+
+   \begin{figure}[htbp]
+    \begin{minipage}{0.5\hsize}
+     \begin{center}
+      \includegraphics[width=50mm]{sample_j55.jpg}
+     \end{center}
+     \caption{JPEG:55}
+     \label{fig:j55}
+    \end{minipage}
+    \begin{minipage}{0.5\hsize}
+     \begin{center}
+      \includegraphics[width=50mm]{sample_j25.jpg}
+     \end{center}
+     \caption{JPEG:25}
+     \label{fig:j25}
+    \end{minipage}
+   \end{figure}
+
+  \begin{figure}[htbp]
+    \begin{minipage}{0.5\hsize}
+     \begin{center}
       \includegraphics[width=50mm]{sample_j10.jpg}
      \end{center}
-     \caption{JPEG:圧縮率10\%}
+     \caption{JPEG:10}
      \label{fig:j10}
     \end{minipage}
     \begin{minipage}{0.5\hsize}
      \begin{center}
       \includegraphics[width=50mm]{sample_j5.jpg}
      \end{center}
-     \caption{JPEG:圧縮率5\%}
+     \caption{JPEG:5}
      \label{fig:j5}
     \end{minipage}
    \end{figure}
 \newpage
 
-これらの結果より，圧縮率が下がるにつれファイルサイズも小さくなっていることが確認できる．
-また，地面に着目すると85\textasciitilde55\%までは大きな変化が見られなかったが，25\%から，緑色と茶色にはっきりとした境界が見え始めた．
-10\%になると緑と茶色は完全に分離し，5\%においては茶色い領域が灰色になっていることも確認できる．
+これらの結果より，圧縮率が上がるにつれファイルサイズも小さくなっていることが確認できる．
+また，地面に着目するとsave qualityが85\textasciitilde55までは大きな変化が見られなかったが，25から，緑色と茶色にはっきりとした境界が見え始めた．
+10になると緑と茶色は完全に分離し，5においては茶色い領域が灰色になっていることも確認できる．
 
 次にトリミングを行い，より拡大して表示したものを図\ref{fig:jori_tri}\textasciitilde\ref{fig:j5_tri}に示す．
+ただし，トリミングでは画像の縦横の長さが異なるため，サイズファイルは比較しない．
 
 \begin{figure}[htbp]
   \begin{minipage}{0.5\hsize}
    \begin{center}
     \includegraphics[width=50mm]{sample_tri.jpg}
    \end{center}
-   \caption{JPEG：オリジナル（トリミング後）}
+   \caption{オリジナル（トリミング後）}
    \label{fig:jori_tri}
   \end{minipage}
   \begin{minipage}{0.5\hsize}
    \begin{center}
     \includegraphics[width=50mm]{sample_j25_tri.jpg}
    \end{center}
-   \caption{JPEG:圧縮率25\%（トリミング後）}
+   \caption{JPEG:25（トリミング後）}
    \label{fig:j25_tri}
   \end{minipage}
  \end{figure}
@@ -244,79 +244,94 @@ GIFはPNGと同様に可逆圧縮をする方式である．1から256色と表�
    \begin{center}
     \includegraphics[width=50mm]{sample_j10_tri.jpg}
    \end{center}
-   \caption{JPEG:圧縮率10\%（トリミング後）}
+   \caption{JPEG:10（トリミング後）}
    \label{fig:j10_tri}
   \end{minipage}
   \begin{minipage}{0.5\hsize}
    \begin{center}
     \includegraphics[width=50mm]{sample_j5_tri.jpg}
    \end{center}
-   \caption{JPEG:圧縮率5\%（トリミング後）}
+   \caption{JPEG:5（トリミング後）}
    \label{fig:j5_tri}
   \end{minipage}
  \end{figure}
 
- 圧縮率が25\%の時点で大きな変化は見られなかったが，中央の柱の陰に着目してみると影の伸び方が
+ save qualityが25の時点で大きな変化は見られなかったが，中央の柱の陰に着目してみると影の伸び方が
  オリジナルと比較し曲線状になっていることが確認できる．
- 圧縮率が10\%になると，柱に緑色の領域が現れ始め，5\%になるとほとんどが緑色になった．
+ save qualityが10になると，柱に緑色の領域が現れ始め，5になるとほとんどが緑色になった．
 
-このように，圧縮率を拡大ささ
+ このように，圧縮率の低下に伴い画像サイズも小さくなるが，色情報が平均化され，10以下になると元画像と大きく変化することが確認できた．
 
-
-
-
-
+\newpage
   \subsection{課題2}
-    条件をそろえるためPNGは圧縮レベル1を，GIFとJPEGは79\%に設定して圧縮を行った．
-    その結果を図\ref{fig:j79}\textasciitilde\ref{fig:g79}に示す．
+    オリジナル画像を圧縮率を同じにして，JPEG，PNG，GIFで保存した．
+    ファイルサイズが最小となる保存形式はJPEGとなり半分程度にまでおさまった．
+    一方，最大となる保存形式はPNGとなり４倍近くのファイルサイズとなった．
+    
 
-    \begin{figure}[htbp]
-      \begin{minipage}{0.5\hsize}
-       \begin{center}
-        \includegraphics[width=50mm]{sample_j79.eps}
-       \end{center}
-       \caption{JPEG:圧縮率79\%}
-       \label{fig:j79}
-      \end{minipage}
-      \begin{minipage}{0.5\hsize}
-       \begin{center}
-        \includegraphics[width=50mm]{sample_p79.eps}
-       \end{center}
-       \caption{PNG:圧縮率79\%}
-       \label{fig:p79}
-      \end{minipage}
-     \end{figure}
-
-     \begin{figure}[!htbp]
-       \begin{center}
-        \includegraphics[width=50mm]{sample_g79.eps}
-       \end{center}
-       \caption{GIF:圧縮率79\%}
-       \label{fig:g79}
-     \end{figure}
-
-     また，ファイルサイズは表\ref{tab:result_filesize}のようになった．
-     \begin{table}[htb]
+    \begin{table}[htb]
       \begin{center}
-        \caption{圧縮率79\%の保存形式ごとのサイズ一覧}
+        \caption{save quality:82のときの保存形式ごとのサイズ一覧}
         \begin{tabular}{|c|c|} \hline
           保存形式 & サイズ[$kB$] \\\hline
-          JPEG & 94  \\
-          PNG & 386  \\ 
-          GIF & 154  \\ \hline
-
+          original & 4557 \\ 
+          JPEG & 2,642  \\
+          PNG & 16,655  \\ 
+          GIF & 6,533  \\ \hline
+ 
         \end{tabular}
         \label{tab:result_filesize}
       \end{center}
     \end{table}
-  
 
+    圧縮率が比較的高い場合，拡大しなければその違いはわかりづらい。
+    そこで，それぞれの画像に対し拡大表示した後snippingツールを使ってトリミングを行った．
+    その結果を，図\ref{fig:jori2}\textasciitilde\ref{fig:g82}に示す．
 
+    \begin{figure}[htbp]
+      \begin{minipage}{0.5\hsize}
+       \begin{center}
+        \includegraphics[width=40mm]{sample_tri2.jpg}
+       \end{center}
+       \caption{オリジナル}
+       \label{fig:jori2}
+      \end{minipage}
+      \begin{minipage}{0.5\hsize}
+       \begin{center}
+        \includegraphics[width=40mm]{sample_j82_tri.jpg}
+       \end{center}
+       \caption{JPEG:82}
+       \label{fig:j82}
+      \end{minipage}
+     \end{figure}
+
+     \begin{figure}[htbp]
+      \begin{minipage}{0.5\hsize}
+       \begin{center}
+        \includegraphics[width=40mm]{sample_p82_tri.png}
+       \end{center}
+       \caption{PNG:82}
+       \label{fig:p82}
+      \end{minipage}
+      \begin{minipage}{0.5\hsize}
+       \begin{center}
+        \includegraphics[width=40mm]{sample_g82_tri.jpg}
+       \end{center}
+       \caption{GIF:82}
+       \label{fig:g82}
+      \end{minipage}
+     \end{figure}
+
+  画像を拡大してみると，jpgではブロック状になっていることが確認できた．また，PNGはともに赤柱の下面が少し暗くなっていることがわかる．
+  GIFでは，丸い点が分布している様子が確認できた．
+
+  JPEGと比較し，PNGは処理時間が1s程度遅かった．
   　
 
 \section{考察}
 \subsection{課題1}
-
+　圧縮率が下がるにつれ画質も下がり，データサイズも小さくなっていった．JPEGは色情報と空間周波数の高周波成分を除去していくことでデータ圧縮を行う非可逆圧縮である．
+圧縮率を下げるということは
 \subsection{課題2}
   高い圧縮率でJPEG圧縮をすると、8×8で圧縮処理を行う弊害として、以下の画像のように8×8のモザイク状のノイズ（ブロックノイズ）が生じてしまったり、高い空間周波数成分を間引いてしまったために、明るさや色が急激に変わる輪郭周辺でもやもやしたノイズ（モスキートノイズ）が現れたりすることがあります。
   　また、圧縮するたびにデータの一部分が必ず劣化していきますので、画像処理を続けて行うときに、途中経過をJPEG形式で保存することはおすすめできません。
