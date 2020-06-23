@@ -1,0 +1,367 @@
+\documentclass[a4paper,11pt]{bxjsarticle}
+\usepackage{xltxtra}
+\usepackage{zxjatype}
+\usepackage{here}
+\setjamainfont[BoldFont=ipaexm.ttf]{ipaexm.ttf}
+\setjasansfont[BoldFont=ipaexg.ttf]{ipaexg.ttf}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{bm}
+\usepackage{cite} 
+
+\lstset{
+basicstyle={\scriptsize}
+}
+\setlist[enumerate]{listparindent=2pt}
+
+
+\begin{document}
+\begin{titlepage}
+  \begin{center}
+    \vspace*{150truept}
+    {\Huge マルチメディア工学Ⅰ　中間レポート}\\ % タイトル
+    \vspace{120truept}
+    {\huge 18T1694W}\\ % 学籍番号
+    \vspace{50truept}
+    {\huge 島袋 隆也}\\ % 著者
+    \vspace{50truept}
+    {\huge \today}\\ % 提出日
+  \end{center}
+\end{titlepage}
+
+
+%=====================================================================
+\section{目的}
+　本実験では，撮影した画像の圧縮率を変化させ，圧縮による画像劣化を考察する．また，
+PNGやGIFに変換し，保存形式による画質の変化を考察することで理解を深めることを目的とする．
+
+
+%=====================================================================
+\section{実験器具}
+  今回撮影に使用したスマホのスペックを表に示す. 
+  \begin{table}[htb]
+    \begin{center}
+      \caption{スペック表}
+      \begin{tabular}{|c|c|} \hline
+        名称 & Garaxy s10  \\
+        F値 & 2.4  \\
+        画素数 & 1200万  \\ \hline
+
+      \end{tabular}
+      \label{tab:price}
+    \end{center}
+  \end{table}
+
+\section{原理}
+\subsection{JPEG}
+JPEG（Joint Photographic Experts Group）とは，静止画像データを非可逆圧縮する方式の一種である．
+この手法は次の２つの処理が行われる．
+\begin{enumerate}
+  \item 色情報の圧縮
+  \item 空間周波数成分分析による圧縮
+\end{enumerate}
+
+まず一つ目の色情報の圧縮について説明する．
+人の目は輝度と比較し，色の変化には弱い．この特性を利用し，$R$，$G$，$B$の各成分を輝度$Y$と色を表す$C_b$，$C_r$に変換する．
+具体的には以下のように変換される．\cite{jpeg2}
+\begin{equation}
+  Y = 0.299R + 0.587G + 0.114B - 128
+\end{equation}
+\begin{equation}
+  C_b = - 0.1687R - 0.3313G + 0.5B + 128
+\end{equation}
+\begin{equation}
+  C_r = 0.5R - 0.4187G - 0.0813B + 128
+\end{equation}
+その後，ブロックごとに任意のピクセルを間引いてサンプリングを行うことで圧縮を行う．
+
+次に，空間周波数成分分析による圧縮について説明する．
+この手法では，元画像の各成分について，8×8画素ごとの小ブロックに分割し，各小ブロックについてDCT演算を行う．
+DCT変換とは離散フーリエ変換の一種であり，cos波の重ね合わせで表現できることを応用した技術である．
+DCTを実際に行った場合を図\ref{fig:dct}に示す．\cite{jpeg1}
+
+\begin{figure}[htbp]
+  \centering  % 図を真ん中に配置
+  \includegraphics[clip,width = 12.0cm]{dct_con.eps}
+  \caption{DCT変換}
+  \label{fig:dct}
+  \end{figure}
+
+左上の方ほど空間周波数が低く，変化が少ない，その一方で右下の方ほど空間周波数が高い，変化が細かいことが確認できる．
+周波数が高ければ高いほど細かなピクセルの変化を表すが，それらは間引いても違和感なく圧縮できる．
+
+
+
+\subsection{PNG}
+PNG（Portable Network Graphics）とは静止画像データを可逆圧縮する方式の一種である．
+圧縮形式にはZLIBが用いられており，圧縮処理はDeflate（LZSS）とハフマン符号化という2つのアルゴリズムを組み合わせて行っている。
+LZSSとは繰り返し現れるデータを何文字もどって何文字コピーするかで表現するコピー＆ペーストによる圧縮のことである．
+ハフマン符号化は出現確率によって，長い符号を割り当てるか短い符号を割り当てるかを決める符号化のことである．
+Deflateで処理した後にハフマン符号化することでより効率のよい圧縮が可能となる．\cite{png1}
+
+また，Webのフォーマットように開発されたため，複数の透過色を指定可能，ガンマ値を補正できる特徴を持つ。
+
+ 
+\subsection{GIF}
+GIFとは静止画像データを可逆圧縮する方式の一種である．
+画像ファイルをGIFファイルに変換する際には画像をあらかじめ256色以下に減色し，
+その画像の左から右，上から下の1ピクセル毎のパレットインデックスを取得してそのデータをLZWで圧縮する．
+
+%=====================================================================
+\section{課題}
+課題内容を以下に示す．
+
+　\begin{enumerate}
+    \item デジカメ等で撮影したJPEG画像の圧縮率を変化させて保存した複数の画像を作成し，画質とデータサイズとの関係を考察しなさい。また，画質がどのように変化しているか。またなぜそのような変化をするのかを考察しなさい。
+    \item 同じ画像をJPEG以外の画像フォーマットで保存し，JPEGとの比較考察をしなさい。
+  \end{enumerate}
+
+
+
+\section{実験手順}
+実験器具で示したスマートフォンと画像編集ソフトIrfanViewで実験を行った．
+実験手順を以下に示す．\\
+
+\begin{enumerate}
+  \item \begin{enumerate}
+          \item スマホで写真を撮影する．
+          \item IrfanViewで写真を開く．
+          \item "ファイル" → "名前をつけて保存"を選択する．
+          \item ファイルの種類を"JPG-JPEG File"にする．
+          \item "save options"より"save quality"を85，55，25，10，5で実行し保存．
+          \item それぞれの画像に対してWindows Viewerでトリミングし保存。
+        \end{enumerate}
+  \item \begin{enumerate}
+          \item ファイルの種類を"JPG-JPEG File"にする．
+          \item "save options"より"save quality"を10\textasciitilde100の82刻みで実行する．
+          \item ファイルの種類を"PNG-Portable Network Graphics"にする．
+          \item "save options"より"Compression level"を7で実行する．
+          \item ファイルの種類を"GIF-Compuserve GIF"にする．
+          \item "save options"より"save quality"を82で実行する．
+          \item それぞれ保存したファイルを同様に10回ずつ実行し上書き保存する．
+        \end{enumerate}
+\end{enumerate}
+
+%=====================================================================
+\section{結果}
+  \subsection{課題1}
+  save qualityを85，55，25，10，5としてJPEG形式で保存した．その結果を図\ref{fig:jori}\textasciitilde\ref{fig:j5}に示す．
+  またそれぞれのファイルサイズは表\ref{tab:result_jpeg_filesize}のようになった．
+
+  \begin{figure}[htbp]
+    \begin{minipage}{0.5\hsize}
+     \begin{center}
+      \includegraphics[width=40mm]{sample.jpg}
+     \end{center}
+     \caption{オリジナル}
+     \label{fig:jori}
+    \end{minipage}
+    \begin{minipage}{0.5\hsize}
+     \begin{center}
+      \includegraphics[width=40mm]{sample_j85.jpg}
+     \end{center}
+     \caption{JPEG:85}
+     \label{fig:j85}
+    \end{minipage}
+   \end{figure}
+
+   \begin{figure}[htbp]
+    \begin{minipage}{0.5\hsize}
+     \begin{center}
+      \includegraphics[width=40mm]{sample_j55.jpg}
+     \end{center}
+     \caption{JPEG:55}
+     \label{fig:j55}
+    \end{minipage}
+    \begin{minipage}{0.5\hsize}
+     \begin{center}
+      \includegraphics[width=40mm]{sample_j25.jpg}
+     \end{center}
+     \caption{JPEG:25}
+     \label{fig:j25}
+    \end{minipage}
+   \end{figure}
+
+  \begin{figure}[htbp]
+    \begin{minipage}{0.5\hsize}
+     \begin{center}
+      \includegraphics[width=40mm]{sample_j10.jpg}
+     \end{center}
+     \caption{JPEG:10}
+     \label{fig:j10}
+    \end{minipage}
+    \begin{minipage}{0.5\hsize}
+     \begin{center}
+      \includegraphics[width=40mm]{sample_j5.jpg}
+     \end{center}
+     \caption{JPEG:5}
+     \label{fig:j5}
+    \end{minipage}
+   \end{figure}
+
+
+   \begin{table}[htbp]
+    \begin{center}
+      \caption{JPEGで保存したときの画像サイズ一覧}
+      \begin{tabular}{|c|c|} \hline
+        save quality & サイズ[$kB$] \\\hline
+        original & 4557  \\
+        85 & 2,872  \\ 
+        55 & 1,643  \\
+        25 & 1,039 \\
+        10 & 554 \\
+        5 & 307 \\\hline
+
+      \end{tabular}
+      \label{tab:result_jpeg_filesize}
+    \end{center}
+  \end{table}
+\newpage
+
+これらの結果より，圧縮率が上がるにつれファイルサイズも小さくなっていることが確認できる．
+また，地面に着目するとsave qualityが85\textasciitilde55までは大きな変化が見られなかったが，25では，ブロックノイズが見え始め，緑色の領域がでてきた．
+10になると緑と茶色は完全に分離し，5においては茶色い領域が灰色になっていることも確認できる．
+
+次にトリミングを行い，より拡大して表示したものを図\ref{fig:jori_tri}\textasciitilde\ref{fig:j5_tri}に示す．
+ただし，トリミングでは画像の縦横の長さが異なるため，サイズファイルは比較しない．
+
+\begin{figure}[htbp]
+  \begin{minipage}{0.5\hsize}
+   \begin{center}
+    \includegraphics[width=50mm]{sample_tri.jpg}
+   \end{center}
+   \caption{オリジナル（トリミング後）}
+   \label{fig:jori_tri}
+  \end{minipage}
+  \begin{minipage}{0.5\hsize}
+   \begin{center}
+    \includegraphics[width=50mm]{sample_j25_tri.jpg}
+   \end{center}
+   \caption{JPEG:25（トリミング後）}
+   \label{fig:j25_tri}
+  \end{minipage}
+ \end{figure}
+
+ \begin{figure}[htbp]
+  \begin{minipage}{0.5\hsize}
+   \begin{center}
+    \includegraphics[width=50mm]{sample_j10_tri.jpg}
+   \end{center}
+   \caption{JPEG:10（トリミング後）}
+   \label{fig:j10_tri}
+  \end{minipage}
+  \begin{minipage}{0.5\hsize}
+   \begin{center}
+    \includegraphics[width=50mm]{sample_j5_tri.jpg}
+   \end{center}
+   \caption{JPEG:5（トリミング後）}
+   \label{fig:j5_tri}
+  \end{minipage}
+ \end{figure}
+
+ save qualityが25の時点で大きな変化は見られなかったが，中央の柱の陰に着目してみると影の伸び方が
+ オリジナルと比較し曲線状になっていることが確認できる．
+ save qualityが10になると，柱に緑色の領域が現れ始め，5になるとほとんどが緑色になった．
+
+ このように，圧縮率の低下に伴い画像サイズも小さくなるが，色情報が平均化され，10以下になると元画像と大きく変化することが確認できた．
+
+\newpage
+  \subsection{課題2}
+    オリジナル画像を圧縮率を同じにして，JPEG，PNG，GIFで保存した．
+    ファイルサイズが最小となる保存形式はJPEGとなり半分程度にまでおさまった．
+    一方，最大となる保存形式はPNGとなり４倍近くのファイルサイズとなった．
+    
+
+    \begin{table}[htb]
+      \begin{center}
+        \caption{save quality:82のときの保存形式ごとのサイズ一覧}
+        \begin{tabular}{|c|c|} \hline
+          保存形式 & サイズ[$kB$] \\\hline
+          original & 4557 \\ 
+          JPEG & 2,642  \\
+          PNG & 16,655  \\ 
+          GIF & 6,533  \\ \hline
+ 
+        \end{tabular}
+        \label{tab:result_filesize}
+      \end{center}
+    \end{table}
+
+    圧縮率が比較的高い場合，拡大しなければその違いはわかりづらい。
+    そこで，それぞれの画像に対し拡大表示した後snippingツールを使ってトリミングを行った．
+    その結果を，図\ref{fig:jori2}\textasciitilde\ref{fig:g82}に示す．
+
+    \begin{figure}[htbp]
+      \begin{minipage}{0.5\hsize}
+       \begin{center}
+        \includegraphics[width=40mm]{sample_tri2.jpg}
+       \end{center}
+       \caption{オリジナル}
+       \label{fig:jori2}
+      \end{minipage}
+      \begin{minipage}{0.5\hsize}
+       \begin{center}
+        \includegraphics[width=40mm]{sample_j82_tri.jpg}
+       \end{center}
+       \caption{JPEG:82}
+       \label{fig:j82}
+      \end{minipage}
+     \end{figure}
+
+     \begin{figure}[htbp]
+      \begin{minipage}{0.5\hsize}
+       \begin{center}
+        \includegraphics[width=40mm]{sample_p82_tri.png}
+       \end{center}
+       \caption{PNG:82}
+       \label{fig:p82}
+      \end{minipage}
+      \begin{minipage}{0.5\hsize}
+       \begin{center}
+        \includegraphics[width=40mm]{sample_g82_tri.jpg}
+       \end{center}
+       \caption{GIF:82}
+       \label{fig:g82}
+      \end{minipage}
+     \end{figure}
+
+  画像を拡大してみると，jpgではブロック状になっていることが確認できた．また，PNGでは赤柱の下面が少し暗くなっていることがわかる．
+  GIFでは，丸い点が分布している様子が確認できた．
+
+
+\section{考察}
+\subsection{課題1}
+JPEGは色情報と空間周波数の高周波成分を除去していくことでデータ圧縮を行う非可逆圧縮である．
+今回の実験では，save qualityの減少（圧縮率の増加）に伴い，画質とデータサイズも低下していった．
+圧縮率を上げるということは，色情報や高周波成分の間引く成分が多くなるため，当然その分画質は低下する．
+また，間引かれた領域は平均化され，表現に必要なデータ量も少なくなる．図\ref{fig:j5}をみると，
+ピクセルをブロックに分け，それらの色情報を平均化されている様子が確認できる．
+つまりJPEGの圧縮率を上げることは，データを小さくすることができるが，画質は低下するというトレードオフの関係にあると考えられる．\\
+\\
+
+save qualityを下げていくと，拡大したときにブロックノイズがでてくる．特にsave qualityが10以下になると，拡大しなくても
+ブロックが確認できるようになり，色もオリジナル画像と異なってくる．
+これは，圧縮率が大きくなると平均化される領域が大きくなるためにブロックノイズが増えていくのだと考えられる．
+また，save qualityが5の地面の色がグレーになっている．
+これは，色情報を落とす工程で茶色と黒が平均化されグレーになったのだと考えられる．
+
+
+\subsection{課題2}
+　JPEGとPNGで保存した画像の拡大図を比較してみると，オリジナルやJPEGでは柱の下面が比較的明るいのに対し，PNGの場合は暗く写っていることが確認できる．
+これは，PNGにはガンマ補正機能が付加されており，それによりディスプレイのガンマ誤差が補正されているのだと考えられる．\\
+また，ファイルサイズもJPEGと比較しPNGは非常に大きい．これは圧縮形式による差である．JPEGは色情報を平均化したり高周波成分を除去することでデータ量を小さくする
+非可逆圧縮だが，PNGはハフマン符号化やLZSSなどを使った可逆圧縮であるためデータサイズが大きくなる．\\
+一方GIFについてだが，ほかの二つと比較し，点が分布していることが確認できる．
+これは，表現できる色が8ビット（256色）カラーであるが，スマホで撮影した画像はフルカラー画像であるため，その分の情報が失われる．
+このとき，近似的に置き換えカラーを疑似化するディザリングと呼ばれる減少が起こる．これにより，斑点が発生しているのだと考えられる．
+%=====================================================================
+
+\bibliography{SA.bib}
+\bibliographystyle{ieeetr} 
+
+
+
+\end{document}
